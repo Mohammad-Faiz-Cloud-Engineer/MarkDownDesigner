@@ -177,8 +177,10 @@
 
         renderer.listitem = function (text, task, checked) {
             if (task) {
+                // Remove the [x] or [ ] markers from the text if they exist
+                const cleanText = text.replace(/^\s*\[[ xX]\]\s*/, '');
                 const checkbox = `<input type="checkbox" ${checked ? 'checked' : ''} disabled>`;
-                return `<li class="task-list-item">${checkbox} <span>${text}</span></li>`;
+                return `<li class="task-list-item">${checkbox} <span>${cleanText}</span></li>`;
             }
             return `<li>${text}</li>`;
         };
