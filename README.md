@@ -38,9 +38,11 @@
 
 **100% Client-Side** — No server required, your data stays private
 
-## Demo
+## Live Tool
 
-Simply open `index.html` in your browser to start using MarkDown Designer.
+**Live Website:** [https://mohammad-faiz-cloud-engineer.github.io/MarkDownDesigner/](https://mohammad-faiz-cloud-engineer.github.io/MarkDownDesigner/)
+
+Or simply open `index.html` in your browser to start using MarkDown Designer.
 
 ## Installation
 
