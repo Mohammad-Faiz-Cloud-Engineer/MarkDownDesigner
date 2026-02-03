@@ -13,6 +13,10 @@
     const CONFIG = {
         autosaveInterval: 2000,
         debounceDelay: 150,
+        breakpoints: {
+            mobile: 768,
+            tablet: 1024
+        },
         storageKeys: {
             content: 'md-designer-content',
             theme: 'md-designer-theme',
@@ -261,7 +265,11 @@
         });
 
         // Save theme preference
-        localStorage.setItem(CONFIG.storageKeys.theme, themeName);
+        try {
+            localStorage.setItem(CONFIG.storageKeys.theme, themeName);
+        } catch (error) {
+            console.error('Error saving theme preference:', error);
+        }
 
         showToast(`Theme changed to ${themeName.charAt(0).toUpperCase() + themeName.slice(1)}`);
     }
@@ -292,7 +300,7 @@
                 !elements.sidebar.classList.contains('open');
         }
 
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= CONFIG.breakpoints.mobile) {
             elements.sidebar.classList.toggle('open', show);
             elements.sidebarOverlay.classList.toggle('show', show);
             document.body.style.overflow = show ? 'hidden' : '';
@@ -300,14 +308,18 @@
             elements.sidebar.classList.toggle('collapsed', !show);
         }
 
-        localStorage.setItem(CONFIG.storageKeys.sidebarState, show ? 'open' : 'closed');
+        try {
+            localStorage.setItem(CONFIG.storageKeys.sidebarState, show ? 'open' : 'closed');
+        } catch (error) {
+            console.error('Error saving sidebar state:', error);
+        }
     }
 
     /**
      * Load sidebar state
      */
     function loadSidebarState() {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= CONFIG.breakpoints.mobile) {
             elements.sidebar.classList.remove('open');
             elements.sidebar.classList.add('collapsed');
         } else {
@@ -388,26 +400,36 @@
      * Save content to localStorage
      */
     function saveContent() {
-        const data = {
-            content: elements.editor.value,
-            timestamp: Date.now()
-        };
-        localStorage.setItem(CONFIG.storageKeys.content, JSON.stringify(data));
+        try {
+            const data = {
+                content: elements.editor.value,
+                timestamp: Date.now()
+            };
+            localStorage.setItem(CONFIG.storageKeys.content, JSON.stringify(data));
+        } catch (error) {
+            console.error('Error saving content:', error);
+            // Continue silently - don't disrupt user experience
+        }
     }
 
     /**
      * Save metadata to localStorage
      */
     function saveMetadata() {
-        const data = {
-            title: elements.docTitle.value,
-            author: elements.docAuthor.value,
-            date: elements.docDate.value,
-            includeTitle: elements.includeTitle.checked,
-            includeAuthor: elements.includeAuthor.checked,
-            includeDate: elements.includeDate.checked
-        };
-        localStorage.setItem(CONFIG.storageKeys.metadata, JSON.stringify(data));
+        try {
+            const data = {
+                title: elements.docTitle.value,
+                author: elements.docAuthor.value,
+                date: elements.docDate.value,
+                includeTitle: elements.includeTitle.checked,
+                includeAuthor: elements.includeAuthor.checked,
+                includeDate: elements.includeDate.checked
+            };
+            localStorage.setItem(CONFIG.storageKeys.metadata, JSON.stringify(data));
+        } catch (error) {
+            console.error('Error saving metadata:', error);
+            // Continue silently - don't disrupt user experience
+        }
     }
 
     /**
@@ -1159,7 +1181,7 @@
 
         // Window resize handler
         window.addEventListener('resize', debounce(() => {
-            if (window.innerWidth > 768) {
+            if (window.innerWidth > CONFIG.breakpoints.mobile) {
                 elements.sidebar.classList.remove('open');
                 elements.sidebarOverlay.classList.remove('show');
                 document.body.style.overflow = '';
@@ -1220,8 +1242,6 @@
 
         // Focus editor
         elements.editor.focus();
-
-        console.log('MarkDown Designer initialized successfully');
     }
 
     // Run initialization when DOM is ready
