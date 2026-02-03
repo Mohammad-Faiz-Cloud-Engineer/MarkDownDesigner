@@ -1,7 +1,7 @@
 # MarkDown Designer
 
 <p align="center">
-  <img src="favicon.png" alt="MarkDown Designer Logo" width="120" height="120">
+  <img src="Web/favicon.png" alt="MarkDown Designer Logo" width="120" height="120">
 </p>
 
 <p align="center">
