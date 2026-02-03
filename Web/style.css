@@ -1375,10 +1375,6 @@ body {
         gap: var(--space-sm);
     }
 
-    .logo-icon {
-        font-size: var(--text-xl);
-    }
-
     .logo-text .logo-accent {
         display: none;
     }
