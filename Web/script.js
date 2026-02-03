@@ -19,52 +19,7 @@
             metadata: 'md-designer-metadata',
             sidebarState: 'md-designer-sidebar'
         },
-        defaultContent: `# Welcome to MarkDown Designer
-
-A premium, client-side markdown editor with **real-time preview** and designer themes.
-
-## Features
-
-- ✨ **Three Designer Themes**: Minimalist Light, Cyberpunk Dark, Swiss Design
-- 📝 **Real-time Preview**: See your markdown rendered instantly
-- 💾 **Auto-save**: Your work is automatically saved to local storage
-- 📄 **Export Options**: PDF, HTML, and Markdown downloads
-
-## Getting Started
-
-Start typing in the editor on the left, and watch your markdown come to life on the right!
-
-### Code Highlighting
-
-\`\`\`javascript
-function greet(name) {
-    console.log(\`Hello, \${name}!\`);
-    return true;
-}
-\`\`\`
-
-### Tables
-
-| Feature | Status |
-|---------|--------|
-| Markdown Parsing | ✅ Complete |
-| Syntax Highlighting | ✅ Complete |
-| PDF Export | ✅ Complete |
-| HTML Export | ✅ Complete |
-
-### Task Lists
-
-- [x] Create beautiful UI
-- [x] Implement three themes
-- [x] Add export functionality
-- [ ] Write more markdown!
-
----
-
-> "The best way to predict the future is to invent it." — Alan Kay
-
-Enjoy writing! 🚀
-`
+        defaultContent: ``
     };
 
     // ============================================
