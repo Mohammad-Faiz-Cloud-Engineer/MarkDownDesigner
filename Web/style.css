@@ -1331,14 +1331,19 @@ body {
     /* Editor Container - Tabbed View */
     .editor-container {
         flex-direction: column;
+        min-height: 0;
     }
 
     .pane {
         display: none;
+        flex: 1;
+        min-height: 0;
     }
 
     .pane.active {
         display: flex;
+        flex: 1;
+        min-height: 0;
     }
 
     .pane-resizer {
@@ -1347,6 +1352,12 @@ body {
 
     .preview-pane {
         border-left: none;
+    }
+
+    /* Fix mobile scrolling for preview */
+    .preview {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Export Controls */
