@@ -1143,20 +1143,18 @@ body {
 }
 
 .pdf-container * {
-    break-inside: avoid-page;
+    page-break-inside: avoid;
 }
 
 .pdf-container p {
     margin-bottom: 1em;
-    orphans: 3;
-    widows: 3;
 }
 
 .pdf-container h1,
 .pdf-container h2,
 .pdf-container h3,
 .pdf-container h4 {
-    break-after: avoid-page;
+    page-break-after: avoid;
     margin-top: 1.5em;
     margin-bottom: 0.75em;
 }
@@ -1168,7 +1166,7 @@ body {
 }
 
 .pdf-container table {
-    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 /* PDF Metadata Header */
@@ -1447,8 +1445,7 @@ body {
     }
 
     .preview p {
-        orphans: 3;
-        widows: 3;
+        page-break-inside: avoid;
     }
 }
 
