@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimalist">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Professional Markdown Editor with real-time preview, designer themes, and export capabilities">
+    <title>MarkDown Designer — Professional Markdown Editor</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js Theme -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" id="hljs-theme">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Document Settings</h2>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="form-group">
+                    <label for="docTitle">Document Title</label>
+                    <input type="text" id="docTitle" placeholder="Untitled Document" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="docAuthor">Author</label>
+                    <input type="text" id="docAuthor" placeholder="Your Name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="docDate">Date</label>
+                    <input type="date" id="docDate">
+                </div>
+                <div class="form-divider"></div>
+                <div class="form-group">
+                    <label>Include in Export</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeTitle" checked>
+                            <span class="checkbox-custom"></span>
+                            Title
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeAuthor" checked>
+                            <span class="checkbox-custom"></span>
+                            Author
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeDate" checked>
+                            <span class="checkbox-custom"></span>
+                            Date
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="btn-icon sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12h18M3 6h18M3 18h18" />
+                        </svg>
+                    </button>
+                    <div class="logo">
+                        <img src="favicon.png" alt="MD" class="logo-icon-img">
+                        <span class="logo-text">MarkDown<span class="logo-accent">Designer</span></span>
+                    </div>
+                </div>
+
+                <div class="header-center">
+                    <!-- Theme Switcher -->
+                    <div class="theme-switcher">
+                        <button class="theme-btn active" data-theme="minimalist" title="Minimalist Light">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="5" />
+                                <path
+                                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                            </svg>
+                            <span>Minimalist</span>
+                        </button>
+                        <button class="theme-btn" data-theme="cyberpunk" title="Cyberpunk Dark">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                            <span>Cyberpunk</span>
+                        </button>
+                        <button class="theme-btn" data-theme="swiss" title="Swiss Design">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            <span>Swiss</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <!-- Export Controls -->
+                    <div class="export-controls">
+                        <button class="btn btn-secondary" id="exportMD" title="Export Markdown">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg>
+                            <span>.MD</span>
+                        </button>
+                        <button class="btn btn-secondary" id="exportHTML" title="Export HTML">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="16 18 22 12 16 6" />
+                                <polyline points="8 6 2 12 8 18" />
+                            </svg>
+                            <span>.HTML</span>
+                        </button>
+                        <button class="btn btn-primary" id="exportPDF" title="Export PDF">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <span>PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Mobile Tab Navigation -->
+            <nav class="mobile-tabs">
+                <button class="mobile-tab active" data-tab="editor">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                    Edit
+                </button>
+                <button class="mobile-tab" data-tab="preview">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Preview
+                </button>
+            </nav>
+
+            <!-- Editor Container -->
+            <div class="editor-container">
+
+                <!-- Editor Pane -->
+                <div class="pane editor-pane active" id="editorPane">
+                    <div class="pane-header">
+                        <span class="pane-title">Markdown</span>
+                        <span class="pane-info" id="charCount">0 characters</span>
+                    </div>
+                    <textarea class="editor" id="editor" placeholder="Start writing your markdown here...
+
+# Heading 1
+## Heading 2
+
+**Bold text** and *italic text*
+
+- List item 1
+- List item 2
+
+\`\`\`javascript
+console.log('Hello World');
+\`\`\`
+
+| Column 1 | Column 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+
+- [x] Task completed
+- [ ] Task pending" spellcheck="true" aria-label="Markdown editor"></textarea>
+                </div>
+
+                <!-- Resizer -->
+                <div class="pane-resizer" id="paneResizer">
+                    <div class="resizer-handle"></div>
+                </div>
+
+                <!-- Preview Pane -->
+                <div class="pane preview-pane" id="previewPane">
+                    <div class="pane-header">
+                        <span class="pane-title">Preview</span>
+                        <span class="pane-badge">Live</span>
+                    </div>
+                    <div class="preview" id="preview">
+                        <div class="preview-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            <p>Your rendered markdown will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Hidden PDF Container -->
+    <div id="pdfContainer" class="pdf-container"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Generating PDF...</p>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
